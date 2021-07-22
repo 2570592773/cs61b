@@ -1,3 +1,5 @@
+import com.sun.istack.internal.localization.NullLocalizable;
+
 import java.util.Formatter;
 
 /**
@@ -82,7 +84,17 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList ans=A;
+        while (A.rest!=null){
+            A=A.rest;
+        }
+        while (B.rest!=null){
+            A.rest=new IntList(B.first,null);
+            B=B.rest;
+            A=A.rest;
+        }
+        A.rest=new IntList(B.first,null);;
+        return ans;
     }
 
     /**
@@ -91,7 +103,16 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        IntList C=new IntList(A.first,null);
+        IntList ans=C;
+        while (A.rest!=null){
+            A=A.rest;
+            C.rest=new IntList(A.first,null);
+            C=C.rest;
+        }
+
+        C.rest=B;
+        return ans;
     }
 
 
