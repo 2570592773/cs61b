@@ -6,10 +6,11 @@ public class NBody{
 		return radius;
 	}
 	public static Planet[] readPlanets(String str){
-		Planet[] planets=new Planet[5];
+
 		In in=new In(str);
-		int firstItemInFile = in.readInt();
+		int N = in.readInt();
 		double secondItemInFile = in.readDouble();
+		Planet[] planets=new Planet[N];
 		for(int i=0;i<5;i++){
 
 			double xxPos=in.readDouble();
