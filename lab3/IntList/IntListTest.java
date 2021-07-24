@@ -15,7 +15,6 @@ public class IntListTest {
         IntList one = new IntList(1, null);
         IntList twoOne = new IntList(2, one);
         IntList threeTwoOne = new IntList(3, twoOne);
-
         IntList x = IntList.of(3, 2, 1);
         assertEquals(threeTwoOne, x);
     }
@@ -26,7 +25,6 @@ public class IntListTest {
         IntList.dSquareList(L);
         assertEquals(IntList.of(1, 4, 9), L);
     }
-
     /**
      * Do not use the new keyword in your tests. You can create
      * lists using the handy IntList.of method.
@@ -39,7 +37,6 @@ public class IntListTest {
      * Keep in mind that dcatenate(A, B) is NOT required to leave A untouched.
      * Anything can happen to A.
      */
-
     @Test
     public void testSquareListRecursive() {
         IntList L = IntList.of(1, 2, 3);
@@ -66,6 +63,20 @@ public class IntListTest {
         assertEquals(IntList.of(1, 2, 3), A);
     }
 
+    /**
+     * Returns the reverse of the given IntList.
+     * This method is destructive. If given null
+     * as an input, returns null.
+     */
+    @Test
+    public void textReverse(){
+        IntList A=IntList.of(1, 2, 3);
+        IntList exp = IntList.of(3, 2, 1);
+        assertEquals(exp, IntList.reverse(A));
+        assertNotEquals(IntList.of(1, 2, 3), A);
+        IntList B=IntList.of();
+        assertEquals(B, IntList.reverse(B));
+    }
     /** If you're running this from the command line, you'll need
       * to add a main method. See ArithmeticTest.java for an
       * example. */
