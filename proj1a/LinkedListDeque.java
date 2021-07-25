@@ -1,12 +1,10 @@
-//import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+public class LinkedListDeque<Item> implements Deque<Item> {
 
-public class LinkedListDeque<T> {
-
-    public class ItemNode<T> {
-        public T item;
+    public class ItemNode<Item> {
+        public Item item;
         public ItemNode next;
         public ItemNode pre;
-        public ItemNode(T i , ItemNode n, ItemNode p){
+        public ItemNode(Item i , ItemNode n, ItemNode p){
             item=i;
             next= n;
             pre=p;
@@ -26,25 +24,30 @@ public class LinkedListDeque<T> {
         sentinel.pre=sentinel.next;
         size=1;
     }*/
-    public void addFirst(T item){
+    @Override
+    public void addFirst(Item item){
         sentinel.next.pre=new ItemNode(item,sentinel.next,sentinel);
         sentinel.next=sentinel.next.pre;
         size+=1;
     }
-    public void addLast(T item){
+    @Override
+    public void addLast(Item item){
         sentinel.pre.next=new ItemNode(item,sentinel,sentinel.pre);
         sentinel.pre=sentinel.pre.next;
         size+=1;
     }
+    @Override
     public boolean isEmpty(){
         if(sentinel.next==sentinel){
             return true;
         }
         return false;
     }
+    @Override
     public int size(){
         return size;
     }
+    @Override
     public void printDeque(){
         ItemNode p=sentinel;
         while(p.next!=sentinel){
@@ -53,27 +56,30 @@ public class LinkedListDeque<T> {
         }
         System.out.println();
     }
-    public T removeFirst(){
+    @Override
+    public Item removeFirst(){
         if(sentinel==sentinel.next){
             return null;
         }
-        T t= (T) sentinel.next.item;
+        Item t= (Item) sentinel.next.item;
         sentinel.next.next.pre=sentinel;
         sentinel.next=sentinel.next.next;
         size-=1;
         return t;
     }
-    public T removeLast(){
+    @Override
+    public Item removeLast(){
         if(sentinel==sentinel.next){
             return null;
         }
-        T t= (T) sentinel.pre.item;
+        Item t= (Item) sentinel.pre.item;
         sentinel.pre.pre.next=sentinel;
         sentinel.pre=sentinel.pre.pre;
         size-=1;
         return t;
     }
-    public T get(int index){
+    @Override
+    public Item get(int index){
         if(index<0 || index>size-1){
             return null;
         }
@@ -81,11 +87,11 @@ public class LinkedListDeque<T> {
         for(int i=0;i<=index;i++){
             p=p.next;
         }
-        return (T) p.item;
+        return (Item) p.item;
     }
-    private T getRecursiveHelp(ItemNode a,int i){
+    private Item getRecursiveHelp(ItemNode a,int i){
         if(i==0){
-            return (T) a.next.item;
+            return (Item) a.next.item;
         }
         else{
             a=a.next;
@@ -93,7 +99,7 @@ public class LinkedListDeque<T> {
         }
         return getRecursiveHelp(a,i);
     }
-    public T getRecursive(int index){
+    public Item getRecursive(int index){
         if(index<0 || index>size-1){
             return null;
         }
