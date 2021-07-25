@@ -28,6 +28,8 @@ public class TestArrayDequeGold {
             }
             Integer expected = sad2.removeFirst();
             Integer actual = sad1.removeFirst();
+            sad2.addFirst(expected);
+            sad1.addFirst(actual);
             assertEquals(message, expected, actual);
         }
     }
