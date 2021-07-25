@@ -9,28 +9,35 @@ public class TestArrayDequeGold {
         StudentArrayDeque<Integer> sad1 = new StudentArrayDeque<Integer>();
         ArrayDequeSolution<Integer> sad2 = new ArrayDequeSolution<Integer>();
         String message = "";
-        while (true) {
-            double numberBetweenZeroAndOne = StdRandom.uniform();
+        int i = 0;
+        while (i < 10) {
             Integer j = StdRandom.uniform(100);
-            Integer k = StdRandom.uniform(100);
-            if (numberBetweenZeroAndOne < 0.5) {
+            if (i % 2 == 0) {
                 sad1.addLast(j);
                 sad2.addLast(j);
-                sad1.addLast(k);
-                sad2.addLast(k);
-                message += "addLast("+j+")\naddLast("+k+")\n";
+                message += "addLast(" + j + ")\n";
+                assertEquals(message, j, sad1.get(sad1.size()-1));
             } else {
                 sad1.addFirst(j);
                 sad2.addFirst(j);
-                sad1.addFirst(k);
-                sad2.addFirst(k);
-                message += "addFirst("+j+")\naddFirst("+k+")\n";
+                message += "addFirst(" + j + ")\n";
+                assertEquals(message, j, sad1.get(0));
             }
-            Integer expected = sad2.removeFirst();
-            Integer actual = sad1.removeFirst();
-            assertEquals(message + "removeFirst()", expected, actual);
-            sad2.addFirst(expected);
-            sad1.addFirst(actual);
+            i++;
+        }
+        while (i > 0) {
+            if (i % 2 == 0) {
+                Integer actual = sad1.removeFirst();
+                Integer expect = sad2.removeFirst();
+                message += "removeFirst()\n";
+                assertEquals(message, expect, actual);
+            } else {
+                Integer actual = sad1.removeLast();
+                Integer expect = sad2.removeLast();
+                message += "removeLast()\n";
+                assertEquals(message, expect, actual);
+            }
+            i--;
         }
     }
 }
