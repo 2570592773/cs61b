@@ -1,20 +1,27 @@
 import java.util.Objects;
 
 public class ArrayDeque<T> {
-    int size;
-    int nextFirst=4;
-    int nextLast=5;
-    T[] items;
-    int refactor=2;
+    private int size;
+    private int nextFirst=4;
+    private int nextLast=5;
+    private T[] items;
+    private int refactor=3;
     public ArrayDeque(){
         items= (T[]) new Object[8];
         size=0;
     }
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, nextFirst+1, a, nextFirst+1, items.length-nextFirst-1);
-        System.arraycopy(items, 0, a, items.length, nextLast);
-        nextLast=size+nextFirst+1;
+        if(nextFirst==size)
+        {
+            System.arraycopy(items, 0, a, nextFirst+1, size);
+            nextLast=nextFirst+size+1;
+        }
+        else{
+            System.arraycopy(items, nextFirst+1, a, nextFirst+1, items.length-nextFirst-1);
+            System.arraycopy(items, 0, a, items.length, nextLast);
+            nextLast=size+nextFirst+1;
+        }
         items = a;
     }
 
@@ -70,6 +77,7 @@ public class ArrayDeque<T> {
                 }
             }
         }
+        System.out.println();
     }
 
     public T removeFirst(){
@@ -131,15 +139,12 @@ public class ArrayDeque<T> {
         l.addFirst(1);
         System.out.println(l.size());
         l.printDeque();
-        System.out.println();
         int j= (int) l.removeFirst();
+        System.out.println(j);
         l.printDeque();
-        System.out.println();
         int i= (int) l.removeLast();
         l.printDeque();
-        System.out.println();
         System.out.println(l.size());
         System.out.println(l.get(8));
-
     }*/
 }
