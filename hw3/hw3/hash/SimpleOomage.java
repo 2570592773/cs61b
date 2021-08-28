@@ -32,7 +32,7 @@ public class SimpleOomage implements Oomage {
             return red + green + blue;
         } else {
             // TODO: Write a perfect hash function for Simple Oomages.
-            return red + green * 256 + blue * 256 * 256;
+            return (red + green * 256 + blue * 256 * 256)/5;
         }
     }
     public SimpleOomage(int r, int g, int b) {

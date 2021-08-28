@@ -44,6 +44,9 @@ public class TestComplexOomage {
         for (int i = 0; i < N; i += 1) {
             deadlyList.add(ComplexOomage.randomComplexOomage());
         }
+
+        // Your code here.
+
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(deadlyList, 10));
     }
 
