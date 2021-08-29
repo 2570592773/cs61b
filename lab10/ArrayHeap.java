@@ -107,13 +107,20 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void swim(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-        if(parentIndex(index)>=1){
+        /*if(parentIndex(index)>=1){
             if(getNode(parentIndex(index)).priority()>getNode(index).priority()){
                 swap(index,parentIndex(index));
                 swim(parentIndex(index));
             }
-        }
+        }*/
         /** TODO: Your code here. */
+        while(min(parentIndex(index), index) == index) {
+            if (index == 1) {
+                break;
+            }
+            swap(index, parentIndex(index));
+            index = parentIndex(index);
+        }
     }
 
     /**
@@ -122,7 +129,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     private void sink(int index) {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-        if(inBounds(leftIndex(index)) || inBounds(rightIndex(index))){
+        /*if(inBounds(leftIndex(index)) || inBounds(rightIndex(index))){
             int smaller=min(leftIndex(index),rightIndex(index));
             if(smaller<=size) {
                 if (getNode(smaller).priority() < getNode(index).priority()) {
@@ -130,13 +137,20 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
                     sink(smaller);
                 }
             }
-        }
-
-
-
-
+        }*/
 
         /** TODO: Your code here. */
+        int child = index * 2;
+        while (inBounds(child)) {
+            int minId = min(child, child + 1);
+            if (min(minId, index) == minId) {
+                swap(index, minId);
+                index = minId;
+                child = index * 2;
+            } else {
+                break;
+            }
+        }
     }
 
     /**
