@@ -24,7 +24,7 @@ public class RadixSort {
         for (String str : copy) {
             max = max > str.length() ? max : str.length();
         }
-        for (int i = max-1; i >= 0; i--) {
+        for (int i = max - 1; i >= 0; i--) {
             sortHelperLSD(copy, i);
         }
 
@@ -41,25 +41,27 @@ public class RadixSort {
         // Optional LSD helper method for required LSD radix sort
         String[][] temp = new String[257][asciis.length];
         int m = 0;
+        int[] nums = new int[257];
         for (String str : asciis) {
             if (str.length() <= index) {
                 temp[0][m++] = str;
+                nums[0]++;
             }
             else {
-                int num = 0;
+                int num =0;
                 while (temp[(int) str.charAt(index)+1][num] != null) {
                     num++;
                 }
                 temp[ (int) str.charAt(index)+1][num] = str;
+                nums[(int) str.charAt(index)+1]++;
+
             }
 
         }
         int k = 0;
         for (int i = 0; i < 257; i++) {
-            for (int j = 0; j < temp[i].length; j++) {
-                if (temp[i][j] != null) {
-                    asciis[k++] = temp[i][j];
-                }
+            for (int j = 0; j < nums[i]; j++) {
+                asciis[k++] = temp[i][j];
             }
         }
     }
