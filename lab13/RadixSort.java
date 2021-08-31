@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Class for doing Radix sort
  *
@@ -17,7 +19,16 @@ public class RadixSort {
      */
     public static String[] sort(String[] asciis) {
         // TODO: Implement LSD Sort
-        return null;
+        String[] copy = asciis.clone();
+        int max = 0;
+        for (String str : copy) {
+            max = max > str.length() ? max : str.length();
+        }
+        for (int i = max-1; i >= 0; i--) {
+            sortHelperLSD(copy, i);
+        }
+
+        return copy;
     }
 
     /**
@@ -28,7 +39,29 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
-        return;
+        String[][] temp = new String[257][asciis.length];
+        int num = 0;
+        int m = 0;
+        for (String str : asciis) {
+            if (str.length() <= index) {
+                temp[0][m++] = str;
+            }
+            else {
+                if (temp[(int) str.charAt(index)+1][0] == null) {
+                    num=0;
+                }
+                temp[(int) str.charAt(index)+1][num++] = str;
+            }
+
+        }
+        int k = 0;
+        for (int i = 0; i < 257; i++) {
+            for (int j = 0; j < temp[i].length; j++) {
+                if (temp[i][j] != null) {
+                    asciis[k++] = temp[i][j];
+                }
+            }
+        }
     }
 
     /**
@@ -45,4 +78,13 @@ public class RadixSort {
         // Optional MSD helper method for optional MSD radix sort
         return;
     }
+    /*public static void main(String[] args) {
+        String[] ass = new String[5];
+        ass[0] = "1ab";
+        ass[1] = "ba";
+        ass[2] = "bca";
+        ass[3] = "aba";
+        ass[4] = "12aba";
+        System.out.println(Arrays.toString(sort(ass)));
+    }*/
 }
