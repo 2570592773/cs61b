@@ -1,3 +1,4 @@
+import com.sun.xml.internal.bind.v2.model.annotation.Quick;
 import edu.princeton.cs.algs4.Queue;
 
 public class QuickSort {
@@ -44,16 +45,42 @@ public class QuickSort {
      * @param greater   An empty Queue. When the function completes, this queue will contain
      *                  all of the items in unsorted that are greater than the given pivot.
      */
-    private static <Item extends Comparable> void partition(
+    private static <Item extends Comparable> Queue<Item> partition(
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
         // Your code here!
+        if(unsorted.size()<=1)
+            return unsorted;
+        while(!unsorted.isEmpty()){
+            Item it=unsorted.dequeue();
+            if(it.compareTo(pivot)<0){
+                less.enqueue(it);
+            }
+            else if(it.compareTo(pivot)>0){
+                greater.enqueue(it);
+            }
+            else equal.enqueue(it);
+        }
+        less = partition(less, getRandomItem(less), new Queue<>(), new Queue<>(), new Queue<>());
+        greater = partition(greater, getRandomItem(greater), new Queue<>(), new Queue<>(), new Queue<>());
+
+        return catenate(catenate(less,equal),greater);
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> quickSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+        Item pivot=getRandomItem(items);
+        return partition(items, pivot, new Queue<>(), new Queue<>(), new Queue<>());
+    }
+    public static void main(String[] args) {
+        Queue<String> students = new Queue<String>();
+        students.enqueue("Alice");
+        students.enqueue("Vanessa");
+        students.enqueue("Ethan");
+        System.out.println(students.toString());
+        System.out.println(QuickSort.quickSort(students));
+
     }
 }
