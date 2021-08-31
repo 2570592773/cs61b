@@ -40,17 +40,17 @@ public class RadixSort {
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
         String[][] temp = new String[257][asciis.length];
-        int num = 0;
         int m = 0;
         for (String str : asciis) {
             if (str.length() <= index) {
                 temp[0][m++] = str;
             }
             else {
-                if (temp[(int) str.charAt(index)+1][0] == null) {
-                    num=0;
+                int num = 0;
+                while (temp[(int) str.charAt(index)+1][num] != null) {
+                    num++;
                 }
-                temp[(int) str.charAt(index)+1][num++] = str;
+                temp[ (int) str.charAt(index)+1][num] = str;
             }
 
         }
@@ -78,7 +78,7 @@ public class RadixSort {
         // Optional MSD helper method for optional MSD radix sort
         return;
     }
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         String[] ass = new String[5];
         ass[0] = "1ab";
         ass[1] = "ba";
@@ -86,5 +86,5 @@ public class RadixSort {
         ass[3] = "aba";
         ass[4] = "12aba";
         System.out.println(Arrays.toString(sort(ass)));
-    }*/
+    }
 }
